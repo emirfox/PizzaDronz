@@ -1,6 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- Spring Boot Parent -->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -8,44 +13,57 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
+  <!-- Basic Project Info -->
   <groupId>uk.ac.ed.inf</groupId>
   <artifactId>PizzaDronz</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>PizzaDronz</name>
   <url>https://maven.apache.org</url>
 
+  <!-- Dependencies -->
   <dependencies>
+
+    <!-- JUnit 4 for older style tests -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.1</version>
       <scope>compile</scope>
     </dependency>
+
+    <!-- Spring Boot & Web -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.mapbox.mapboxsdk</groupId>
-      <artifactId>mapbox-sdk-geojson</artifactId>
-      <version>5.8.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
       <scope>compile</scope>
     </dependency>
+
+    <!-- Mapbox -->
+    <dependency>
+      <groupId>com.mapbox.mapboxsdk</groupId>
+      <artifactId>mapbox-sdk-geojson</artifactId>
+      <version>5.8.0</version>
+    </dependency>
+
+    <!-- Spring Boot Testing -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
+
+    <!-- Jackson (Core, Databind, JSR310) -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
@@ -61,11 +79,15 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>2.15.2</version>
     </dependency>
+
+    <!-- org.json -->
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20231013</version>
     </dependency>
+
+    <!-- The local jar you need to install before compile -->
     <dependency>
       <groupId>uk.ac.ed.inf.ilp</groupId>
       <artifactId>IlpDataObjects</artifactId>
@@ -74,13 +96,19 @@
     </dependency>
 
   </dependencies>
+
+  <!-- Build Plugins -->
   <build>
     <plugins>
+
+      <!-- Spring Boot Maven Plugin -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>3.1.5</version>
       </plugin>
+
+      <!-- Standard Jar Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -95,6 +123,7 @@
         </configuration>
       </plugin>
 
+      <!-- Shade plugin to create a fat/uber jar if needed -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -111,18 +140,22 @@
           <outputFile>${project.build.directory}/${project.artifactId}-${project.version}.jar</outputFile>
         </configuration>
       </plugin>
-      <!--            installing the maven install plugin-->
+
+      <!-- Maven Install Plugin to install IlpDataObjects.jar locally during the 'initialize' phase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-install-plugin</artifactId>
         <version>3.1.0</version>
         <executions>
           <execution>
-            <phase>clean</phase>
+            <!-- Change from 'clean' to 'initialize' so it's installed before compile/test -->
+            <phase>initialize</phase>
             <goals>
               <goal>install-file</goal>
             </goals>
             <configuration>
+              <!-- Update path if your jar is actually in 'out/artifacts/...'
+                   or rename the folder to 'lib' for clarity -->
               <file>${project.basedir}/lib/IlpDataObjects.jar</file>
               <groupId>uk.ac.ed.inf.ilp</groupId>
               <artifactId>IlpDataObjects</artifactId>
