@@ -156,7 +156,7 @@
             <configuration>
               <!-- Update path if your jar is actually in 'out/artifacts/...'
                    or rename the folder to 'lib' for clarity -->
-              <file>${project.basedir}/out/artifacts/PizzaDronz_jar/PizzaDronz.jar</file>
+              <file>${project.basedir}/libraries/IlpDataObjects.jar</file>
               <groupId>uk.ac.ed.inf.ilp</groupId>
               <artifactId>IlpDataObjects</artifactId>
               <version>1.0.0-SNAPSHOT</version>
