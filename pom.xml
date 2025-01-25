@@ -151,7 +151,7 @@
             </goals>
             <configuration>
               <!-- MAKE SURE THIS PATH MATCHES WHERE THE JAR IS IN YOUR REPO -->
-              <file>${project.basedir}/lib/IlpDataObjects.jar</file>
+              <file>${project.basedir}/libraries/IlpDataObjects.jar</file>
               <groupId>uk.ac.ed.inf.ilp</groupId>
               <artifactId>IlpDataObjects</artifactId>
               <version>1.0.0-SNAPSHOT</version>
