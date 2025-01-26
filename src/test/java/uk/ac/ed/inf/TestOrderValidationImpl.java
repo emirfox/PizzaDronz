@@ -161,11 +161,6 @@ public class TestOrderValidationImpl {
         assertEquals(OrderValidationCode.CVV_INVALID, result.getOrderValidationCode());
     }
 
-    // ---------------------------------------------
-    // Additional test cases from your friend's example
-    // (some may fail if your code doesn't handle them)
-    // ---------------------------------------------
-
     @Test
     void testWrongPizza() {
         // "New Pizza" doesn't belong to either restaurant
