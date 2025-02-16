@@ -23,8 +23,7 @@
 
   <!-- Dependencies -->
   <dependencies>
-
-    <!-- JUnit 4 for older style tests -->
+    <!-- JUnit (older style tests) -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -40,7 +39,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <scope>compile</scope>
     </dependency>
 
     <!-- Mapbox -->
@@ -87,17 +85,16 @@
       <version>20231013</version>
     </dependency>
 
-    <!-- The local jar you need to install before compile -->
+    <!-- Your local jar, IlpDataObjects -->
     <dependency>
       <groupId>uk.ac.ed.inf.ilp</groupId>
       <artifactId>IlpDataObjects</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
-
   </dependencies>
 
-  <!-- Build Plugins -->
+  <!-- Build & Plugins -->
   <build>
     <plugins>
 
@@ -108,7 +105,7 @@
         <version>3.1.5</version>
       </plugin>
 
-      <!-- Standard Jar Plugin -->
+      <!-- JAR Plugin (to define main class, etc.) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -123,7 +120,7 @@
         </configuration>
       </plugin>
 
-      <!-- Shade plugin to create a fat/uber jar if needed -->
+      <!-- Shade plugin: creates an uber/fat jar if needed -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -141,22 +138,20 @@
         </configuration>
       </plugin>
 
-      <!-- Maven Install Plugin to install IlpDataObjects.jar locally during the 'initialize' phase -->
+      <!-- Maven Install Plugin to install IlpDataObjects.jar locally during 'initialize' -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-install-plugin</artifactId>
         <version>3.1.0</version>
         <executions>
           <execution>
-            <!-- Change from 'clean' to 'initialize' so it's installed before compile/test -->
             <phase>initialize</phase>
             <goals>
               <goal>install-file</goal>
             </goals>
             <configuration>
-              <!-- Update path if your jar is actually in 'out/artifacts/...'
-                   or rename the folder to 'lib' for clarity -->
-              <file>${project.basedir}/libraries/IlpDataObjects.jar</file>
+              <!-- MAKE SURE THIS PATH MATCHES WHERE THE JAR IS IN YOUR REPO -->
+              <file>${project.basedir}/lib/IlpDataObjects.jar</file>
               <groupId>uk.ac.ed.inf.ilp</groupId>
               <artifactId>IlpDataObjects</artifactId>
               <version>1.0.0-SNAPSHOT</version>
